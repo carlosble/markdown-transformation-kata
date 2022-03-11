@@ -2,6 +2,12 @@
 
 The goal is to implement a command line tool that takes a markdown file and returns another markdown file, applying certain transformations to the text. 
 
+```
+./markdown-transform -t links2footnotes source.md destination.md
+```
+
+
+
 The first transformation is to turn links into footnotes. The syntax of a link is this:
 
 ```
