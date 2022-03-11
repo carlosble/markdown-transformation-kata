@@ -11,9 +11,9 @@ The first transformation is to turn links into footnotes. The syntax of a link i
 The syntax of a footnote is the following:
 
 ```
-visible text link [^word]
+visible text link [^anchor1]
 
-[^word]: url or text 
+[^anchor1]: url or text 
 ```
 
 The goal is to make conversions like the following:
@@ -28,10 +28,10 @@ and some other text line.
 Transformation:
 
 ```
-this book [^book1] and some other text 
+this book [^anchor1] and some other text 
 and some other text line.
 
-[^book1]: https://codigosostenible.com
+[^anchor1]: https://codigosostenible.com
 ```
 
 There are multiple edge cases to consider: multiple links per line, several links sharing the same url...
