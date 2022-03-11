@@ -11,7 +11,7 @@ The first transformation is to turn links into footnotes. The syntax of a link i
 The syntax of a footnote is the following:
 
 ```
-visible text [^word]
+visible text link [^word]
 
 [^word]: url or text 
 ```
@@ -34,6 +34,6 @@ and some other text line.
 [^book1]: https://codigosostenible.com
 ```
 
-
+There are multiple edge cases to consider: multiple links per line, several links sharing the same url...
 
 
