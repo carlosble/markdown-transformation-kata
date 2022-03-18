@@ -42,12 +42,14 @@ public class TransformerShould {
         assertThat(footNote.get(0)).isEqualTo(new Footnote("some link [^anchor1]", "[^anchor1]: url"));
     }
 
-    /*@Test
+    @Test
     public void transform_text_line_with_several_links_into_footnotes(){
         Transformations transformations = new Transformations();
-        List<String> footNote = transformations.linkToFootNote("[some link](url)  \"[other link](url2)\"");
+        List<Footnote> footnotes = transformations.linkToFootNote("[some link](url)  \"[other link](url2)\"");
 
-        assertThat(footNote).isEqualTo(List.of(
-                "some link [^anchor1]", "[^anchor1]: url", "other link [^anchor2]", "[^anchor2]: url2"));
-    }  */
+        assertThat(footnotes.get(0)).isEqualTo(
+                new Footnote("some link [^anchor1]", "[^anchor1]: url"));
+        assertThat(footnotes.get(1)).isEqualTo(
+                new Footnote("other link [^anchor2]", "[^anchor2]: url2"));
+    }
 }
