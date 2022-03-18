@@ -17,7 +17,7 @@ public class TransformerShould {
 
     @Test
     public void apply_transformations_and_save_in_the_destination_file() throws IOException {
-        MarkdownTransformer transformer = new MarkdownTransformer();
+        MarkdownTransformer transformer = new MarkdownTransformer(null, null);
         writeToFile(sourceFile,"[some link](http://test)");
 
         transformer.turnLinksIntoFootnotes(sourceFile, destinationFile);
