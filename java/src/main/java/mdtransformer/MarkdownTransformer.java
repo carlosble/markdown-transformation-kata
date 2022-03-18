@@ -14,7 +14,8 @@ public class MarkdownTransformer {
 
     public void turnLinksIntoFootnotes(String sourceFile, String destinationFile) throws IOException {
         List<String> lines = textFileHandler.readLines();
-        textFileHandler.writeLines(transformations.linkToFootNote(lines.get(0)));
+        List<Footnote> footnotes = transformations.linkToFootNote(lines.get(0));
+        textFileHandler.writeLines(List.of());
 
         //[some link](url)
         //"some link [^anchor1]", "[^anchor1]: url"
