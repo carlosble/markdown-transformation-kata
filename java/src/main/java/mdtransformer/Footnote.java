@@ -1,24 +1,40 @@
 package mdtransformer;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Footnote {
     private final String textInPage;
     private final String anchor;
+    private String uniqueId;
 
     public Footnote(String textInPage, String anchor) {
         this.textInPage = textInPage;
         this.anchor = anchor;
     }
 
-    public String textInPage(int anchorCount) {
-        return String.format("%s [^anchor%s]", textInPage, anchorCount);
+    public String textInPage(int anchorId) {
+        return String.format("%s [^anchor_%s]", textInPage, anchorId);
     }
 
-    public String anchor(int anchorCount){
-        return String.format("[^anchor%s]: %s", anchorCount, anchor);
+    public String anchor(int anchorId){
+        return String.format("[^anchor_%s]: %s", anchorId, anchor);
     }
 
+    public String textInPage(){
+        return String.format("%s [^anchor_%s]", textInPage, uniqueId());
+    }
+
+    public String anchor(){
+        return String.format("[^anchor_%s]: %s", uniqueId(), anchor);
+    }
+
+    public String uniqueId(){
+        if (uniqueId == null){
+            uniqueId = UUID.randomUUID().toString();
+        }
+        return uniqueId;
+    }
 
     @Override
     public String toString() {

@@ -34,13 +34,13 @@ public class TransformerShould {
         transformer.turnLinksIntoFootnotes("sourceFilePath", "destinationFilePath");
 
         InOrder inOrder = inOrder(textFileHandler);
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("some link [^anchor1]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("second link [^anchor2]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("third link [^anchor3]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("fourth link [^anchor4]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor1]: url");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor2]: url2");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor3]: url3");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor4]: url4");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("some link [^anchor%s]");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("second link [^anchor%s]");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("third link [^anchor%s]");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("fourth link [^anchor%s]");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url2");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url3");
+        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url4");
     }
 }

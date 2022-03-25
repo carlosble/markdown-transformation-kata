@@ -3,7 +3,6 @@ package mdtransformer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MarkdownTransformer {
     private final TextFileHandler textFileHandler;
@@ -15,20 +14,31 @@ public class MarkdownTransformer {
     }
 
     public void turnLinksIntoFootnotes(String sourceFile, String destinationFile) throws IOException {
-        List<String> lines = textFileHandler.readLines();
+        List<Footnote> footnotes = getFootnotesFromTextLines();
+        int anchorId = 1;
+        writeLinkTextLinesFrom(footnotes, anchorId);
+        writeLinkAnchorLinesFrom(footnotes, anchorId);
+    }
+
+    private List<Footnote> getFootnotesFromTextLines() {
         List<Footnote> footnotes = new ArrayList<>();
-        for (var line: lines) {
+        for (var line: textFileHandler.readLines()) {
             footnotes.addAll(transformations.linkToFootNote(line));
         }
-        int anchorCount = 1;
+        return footnotes;
+    }
+
+    private void writeLinkAnchorLinesFrom(List<Footnote> footnotes, int anchorId) {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.textInPage(anchorCount));
-            anchorCount++;
+            textFileHandler.writeLineWithEndingBreak(footnote.anchor(anchorId));
+            anchorId++;
         }
-        anchorCount = 1;
+    }
+
+    private void writeLinkTextLinesFrom(List<Footnote> footnotes, int anchorId) {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.anchor(anchorCount));
-            anchorCount++;
+            textFileHandler.writeLineWithEndingBreak(footnote.textInPage(anchorId));
+            anchorId++;
         }
     }
 }
