@@ -4,6 +4,16 @@
 # Log file
 *.log
 
+*.iml
+
+Maven__*
+
+modules.xml
+misc.xml
+jarRepositories.xml
+vcs.xml
+compiler.xml
+
 # BlueJ files
 *.ctxt
 
