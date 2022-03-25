@@ -31,4 +31,12 @@ public class Footnote {
     public int hashCode() {
         return Objects.hash(textInPage, anchor);
     }
+
+    public String textInPage() {
+        return textInPage;
+    }
+
+    public String anchor() {
+        return anchor;
+    }
 }

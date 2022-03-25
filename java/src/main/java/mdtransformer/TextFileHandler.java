@@ -11,4 +11,8 @@ public class TextFileHandler {
     public void writeLines(List<String> lines) {
         // insert lines adding \n
     }
+
+    public void writeLineWithEndingBreak(String line){
+
+    }
 }

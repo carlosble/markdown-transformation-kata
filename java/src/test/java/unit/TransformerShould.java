@@ -4,10 +4,11 @@ import mdtransformer.Footnote;
 import mdtransformer.MarkdownTransformer;
 import mdtransformer.TextFileHandler;
 import mdtransformer.Transformations;
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -31,7 +32,8 @@ public class TransformerShould {
 
         transformer.turnLinksIntoFootnotes("sourceFilePath", "destinationFilePath");
 
-        verify(textFileHandler).writeLines(List.of("some link [^anchor1]", "[^anchor1]: url"));
+        verify(textFileHandler).writeLineWithEndingBreak("some link [^anchor1]");
+        verify(textFileHandler).writeLineWithEndingBreak("[^anchor1]: url");
     }
 
     @Test
