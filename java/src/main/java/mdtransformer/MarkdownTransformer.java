@@ -1,6 +1,7 @@
 package mdtransformer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +16,19 @@ public class MarkdownTransformer {
 
     public void turnLinksIntoFootnotes(String sourceFile, String destinationFile) throws IOException {
         List<String> lines = textFileHandler.readLines();
-        List<Footnote> footnotes = transformations.linkToFootNote(lines.get(0));
-        textFileHandler.writeLineWithEndingBreak(footnotes.get(0).textInPage(1));
-        textFileHandler.writeLineWithEndingBreak(footnotes.get(0).anchor(1));
+        List<Footnote> footnotes = new ArrayList<>();
+        for (var line: lines) {
+            footnotes.addAll(transformations.linkToFootNote(line));
+        }
+        int anchorCount = 1;
+        for (var footnote: footnotes) {
+            textFileHandler.writeLineWithEndingBreak(footnote.textInPage(anchorCount));
+            anchorCount++;
+        }
+        anchorCount = 1;
+        for (var footnote: footnotes) {
+            textFileHandler.writeLineWithEndingBreak(footnote.anchor(anchorCount));
+            anchorCount++;
+        }
     }
 }
