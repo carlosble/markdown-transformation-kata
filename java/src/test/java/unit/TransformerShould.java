@@ -1,14 +1,11 @@
 package unit;
 
-import mdtransformer.Footnote;
 import mdtransformer.MarkdownTransformer;
 import mdtransformer.TextFileHandler;
 import mdtransformer.Transformations;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -36,22 +33,4 @@ public class TransformerShould {
         verify(textFileHandler).writeLineWithEndingBreak("[^anchor1]: url");
     }
 
-    @Test
-    public void transform_text_line_into_footnote(){
-        Transformations transformations = new Transformations();
-        List<Footnote> footNote = transformations.linkToFootNote("[some link](url)");
-
-        assertThat(footNote.get(0)).isEqualTo(new Footnote("some link [^anchor1]", "[^anchor1]: url"));
-    }
-
-    @Test
-    public void transform_text_line_with_several_links_into_footnotes(){
-        Transformations transformations = new Transformations();
-        List<Footnote> footnotes = transformations.linkToFootNote("[some link](url)  \"[other link](url2)\"");
-
-        assertThat(footnotes.get(0)).isEqualTo(
-                new Footnote("some link [^anchor1]", "[^anchor1]: url"));
-        assertThat(footnotes.get(1)).isEqualTo(
-                new Footnote("other link [^anchor2]", "[^anchor2]: url2"));
-    }
 }

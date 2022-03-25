@@ -10,13 +10,12 @@ public class Transformations {
         Pattern pattern = Pattern.compile("\\[(.+?)]\\((.+?)\\)");
         Matcher matcher = pattern.matcher(line);
         List<Footnote> footnotes = new ArrayList<>();
-        int anchorCount = 1;
         while (matcher.find()) {
-            footnotes.add(new Footnote(
-                    String.format("%s [^anchor%s]", matcher.group(1), anchorCount),
-                    String.format("[^anchor%s]: %s", anchorCount, matcher.group(2))));
-            anchorCount++;
+            String linkText = matcher.group(1);
+            String linkUrl = matcher.group(2);
+            footnotes.add(new Footnote(linkText, linkUrl));
         }
         return footnotes;
     }
+
 }

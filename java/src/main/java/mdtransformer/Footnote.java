@@ -11,6 +11,15 @@ public class Footnote {
         this.anchor = anchor;
     }
 
+    public String textInPage(int anchorCount) {
+        return String.format("%s [^anchor%s]", textInPage, anchorCount);
+    }
+
+    public String anchor(int anchorCount){
+        return String.format("[^anchor%s]: %s", anchorCount, anchor);
+    }
+
+
     @Override
     public String toString() {
         return "Footnote{" +
@@ -32,11 +41,5 @@ public class Footnote {
         return Objects.hash(textInPage, anchor);
     }
 
-    public String textInPage() {
-        return textInPage;
-    }
 
-    public String anchor() {
-        return anchor;
-    }
 }
