@@ -6,9 +6,9 @@ import java.util.List;
 
 public class MarkdownTransformer {
     private final TextFileHandler textFileHandler;
-    private final Transformations transformations;
+    private final LinkToFootnote transformations;
 
-    public MarkdownTransformer(TextFileHandler textFileHandler, Transformations transformations) {
+    public MarkdownTransformer(TextFileHandler textFileHandler, LinkToFootnote transformations) {
         this.textFileHandler = textFileHandler;
         this.transformations = transformations;
     }
@@ -22,7 +22,7 @@ public class MarkdownTransformer {
     private List<Footnote> getFootnotesFromTextLines(String sourceFile) throws IOException {
         List<Footnote> footnotes = new ArrayList<>();
         for (var line: textFileHandler.readLines(sourceFile)) {
-            footnotes.addAll(transformations.linkToFootNote(line));
+            footnotes.addAll(transformations.transformOfLinksIn(line));
         }
         return footnotes;
     }

@@ -2,7 +2,7 @@ package unit;
 
 import mdtransformer.MarkdownTransformer;
 import mdtransformer.TextFileHandler;
-import mdtransformer.Transformations;
+import mdtransformer.LinkToFootnote;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class TransformerShould {
         SpyTextFileHandler textFileHandler = new SpyTextFileHandler();
         textFileHandler.stubLines = List.of("[some link](url)     [second link](url2)",
                                             "[third link](url3)   [fourth link](url4)");
-        Transformations transformations = new Transformations();
+        LinkToFootnote transformations = new LinkToFootnote();
         MarkdownTransformer transformer = new MarkdownTransformer(textFileHandler, transformations);
 
         transformer.turnLinksIntoFootnotes("sourceFilePath", "destinationFilePath");

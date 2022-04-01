@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Transformations {
-    public List<Footnote> linkToFootNote(String line) {
+public class LinkToFootnote {
+    public List<Footnote> transformOfLinksIn(String line) {
         Pattern pattern = Pattern.compile("\\[(.+?)]\\((.+?)\\)");
         Matcher matcher = pattern.matcher(line);
         List<Footnote> footnotes = new ArrayList<>();
@@ -17,5 +17,4 @@ public class Transformations {
         }
         return footnotes;
     }
-
 }
