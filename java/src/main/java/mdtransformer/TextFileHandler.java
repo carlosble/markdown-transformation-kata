@@ -1,18 +1,22 @@
 package mdtransformer;
 
-import java.util.Arrays;
+import java.io.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TextFileHandler {
-    public List<String> readLines() {
-        return List.of();
+    public List<String> readLines(String sourceFile) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
+        List<String> lines = reader.lines().collect(Collectors.toList());
+        reader.close();
+        return lines;
     }
 
-    public void writeLines(List<String> lines) {
-        // insert lines adding \n
-    }
-
-    public void writeLineWithEndingBreak(String line){
-
+    public void writeLineWithEndingBreak(String line, String destinationFile) throws IOException {
+        // TODO: make this more efficient
+        BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFile, true));
+        writer.append(line);
+        writer.append("\n");
+        writer.close();
     }
 }

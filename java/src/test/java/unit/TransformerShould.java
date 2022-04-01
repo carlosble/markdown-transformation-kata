@@ -4,13 +4,11 @@ import mdtransformer.MarkdownTransformer;
 import mdtransformer.TextFileHandler;
 import mdtransformer.Transformations;
 import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
 
 /*
     Leer fichero, aplicar transformaciones, escribir
@@ -44,12 +42,12 @@ public class TransformerShould {
         public List<String> stubLines;
 
         @Override
-        public List<String> readLines() {
+        public List<String> readLines(String sourceFile) {
             return stubLines;
         }
 
         @Override
-        public void writeLineWithEndingBreak(String line) {
+        public void writeLineWithEndingBreak(String line, String destinationFile) {
             buffer.append(line);
             buffer.append(" ");
         }

@@ -1,5 +1,6 @@
 package integration;
 
+import mdtransformer.Factory;
 import mdtransformer.MarkdownTransformer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -17,16 +18,15 @@ public class TransformerShould {
 
     @Test
     public void apply_transformations_and_save_in_the_destination_file() throws IOException {
-        MarkdownTransformer transformer = new MarkdownTransformer(null, null);
+        MarkdownTransformer transformer = Factory.MarkdownTransformer();
         writeToFile(sourceFile,"[some link](http://test)");
 
         transformer.turnLinksIntoFootnotes(sourceFile, destinationFile);
 
         List<String> result = readFile(destinationFile);
+        assertThat(result.get(0)).matches("some link \\[\\^anchor_.*]");
+        assertThat(result.get(1)).matches("\\[\\^anchor_.*]: http://test");
         assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0)).contains("some link [^anchor1]");
-        assertThat(result.get(1)).contains("[^anchor1]: http://test");
-
     }
 
     @AfterEach
