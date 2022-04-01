@@ -2,6 +2,6 @@ package mdtransformer;
 
 public class Factory {
     public static MarkdownTransformer MarkdownTransformer() {
-        return new MarkdownTransformer(new TextFileHandler(), new LinkToFootnote());
+        return new MarkdownTransformer(new TextFileHandler());
     }
 }
