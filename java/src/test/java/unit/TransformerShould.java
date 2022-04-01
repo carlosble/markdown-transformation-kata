@@ -1,6 +1,5 @@
 package unit;
 
-import mdtransformer.Footnote;
 import mdtransformer.MarkdownTransformer;
 import mdtransformer.TextFileHandler;
 import mdtransformer.Transformations;
@@ -24,23 +23,35 @@ import static org.mockito.Mockito.*;
 public class TransformerShould {
     @Test
     public void read_lines_from_file_and_store_transformations_in_file() throws IOException {
-        TextFileHandler textFileHandler = mock(TextFileHandler.class);
-        when(textFileHandler.readLines()).thenReturn(
-                List.of("[some link](url)     [second link](url2)",
-                        "[third link](url3)   [fourth link](url4)"));
+        SpyTextFileHandler textFileHandler = new SpyTextFileHandler();
+        textFileHandler.stubLines = List.of("[some link](url)     [second link](url2)",
+                                            "[third link](url3)   [fourth link](url4)");
         Transformations transformations = new Transformations();
         MarkdownTransformer transformer = new MarkdownTransformer(textFileHandler, transformations);
 
         transformer.turnLinksIntoFootnotes("sourceFilePath", "destinationFilePath");
 
-        InOrder inOrder = inOrder(textFileHandler);
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("some link [^anchor%s]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("second link [^anchor%s]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("third link [^anchor%s]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("fourth link [^anchor%s]");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url2");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url3");
-        inOrder.verify(textFileHandler).writeLineWithEndingBreak("[^anchor%s]: url4");
+        String buffer = textFileHandler.buffer.toString();
+        //                                           id with at least five chars
+        String beginningOfTextInPage = "^some link \\[\\^anchor_.{5,}] second link \\[\\^anchor_.{5,}].*";
+        String endOfAnchors = ".*\\[\\^anchor_.{5,}]: url3 \\[\\^anchor_.{5,}]: url4 $";
+        assertThat(buffer).matches(beginningOfTextInPage);
+        assertThat(buffer).matches(endOfAnchors);
+    }
+
+    class SpyTextFileHandler extends TextFileHandler {
+        public StringBuilder buffer = new StringBuilder();
+        public List<String> stubLines;
+
+        @Override
+        public List<String> readLines() {
+            return stubLines;
+        }
+
+        @Override
+        public void writeLineWithEndingBreak(String line) {
+            buffer.append(line);
+            buffer.append(" ");
+        }
     }
 }

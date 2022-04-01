@@ -15,9 +15,8 @@ public class MarkdownTransformer {
 
     public void turnLinksIntoFootnotes(String sourceFile, String destinationFile) throws IOException {
         List<Footnote> footnotes = getFootnotesFromTextLines();
-        int anchorId = 1;
-        writeLinkTextLinesFrom(footnotes, anchorId);
-        writeLinkAnchorLinesFrom(footnotes, anchorId);
+        writeLinkTextLinesFrom(footnotes);
+        writeLinkAnchorLinesFrom(footnotes);
     }
 
     private List<Footnote> getFootnotesFromTextLines() {
@@ -28,17 +27,15 @@ public class MarkdownTransformer {
         return footnotes;
     }
 
-    private void writeLinkAnchorLinesFrom(List<Footnote> footnotes, int anchorId) {
+    private void writeLinkAnchorLinesFrom(List<Footnote> footnotes) {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.anchor(anchorId));
-            anchorId++;
+            textFileHandler.writeLineWithEndingBreak(footnote.anchor());
         }
     }
 
-    private void writeLinkTextLinesFrom(List<Footnote> footnotes, int anchorId) {
+    private void writeLinkTextLinesFrom(List<Footnote> footnotes) {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.textInPage(anchorId));
-            anchorId++;
+            textFileHandler.writeLineWithEndingBreak(footnote.textInPage());
         }
     }
 }

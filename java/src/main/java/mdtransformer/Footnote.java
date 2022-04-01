@@ -13,14 +13,6 @@ public class Footnote {
         this.anchor = anchor;
     }
 
-    public String textInPage(int anchorId) {
-        return String.format("%s [^anchor_%s]", textInPage, anchorId);
-    }
-
-    public String anchor(int anchorId){
-        return String.format("[^anchor_%s]: %s", anchorId, anchor);
-    }
-
     public String textInPage(){
         return String.format("%s [^anchor_%s]", textInPage, uniqueId());
     }
