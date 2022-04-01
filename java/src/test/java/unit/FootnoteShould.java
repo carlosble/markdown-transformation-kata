@@ -11,11 +11,14 @@ public class FootnoteShould {
         Footnote footnote = new Footnote("some link", "url");
         Footnote footnote2 = new Footnote("some link", "url");
 
-        assertThat(footnote.anchor()).matches("^\\[\\^anchor_\\s+]: url$");
-        //assertThat(footnote.anchor()).matches("\\[^anchor\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b]: url");
-        assertThat(footnote.textInPage()).matches("some link \\[\\^anchor\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b]");
-        //todo check same id
+        assertThat(footnote.anchor()).matches("\\[\\^anchor_.*]: url");
+        assertThat(footnote.textInPage()).matches("some link \\[\\^anchor_.*]");
+        assertThat(extractIdFromFootnote(footnote.anchor()))
+                .isEqualTo(extractIdFromFootnote(footnote.textInPage()));
         assertThat(footnote.anchor()).isNotEqualTo(footnote2.anchor());
-        assertThat(footnote.textInPage()).isNotEqualTo(footnote2.textInPage());
+    }
+
+    private String extractIdFromFootnote(String anchor) {
+        return anchor.split("anchor_")[1].split("]")[0];
     }
 }
