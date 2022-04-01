@@ -29,13 +29,13 @@ public class MarkdownTransformer {
 
     private void writeLinkAnchorLinesFrom(List<Footnote> footnotes, String destinationFile) throws IOException {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.anchor(), destinationFile);
+            textFileHandler.appendLineToTextFile(footnote.anchor(), destinationFile);
         }
     }
 
     private void writeLinkTextLinesFrom(List<Footnote> footnotes, String destinationFile) throws IOException {
         for (var footnote: footnotes) {
-            textFileHandler.writeLineWithEndingBreak(footnote.textInPage(), destinationFile);
+            textFileHandler.appendLineToTextFile(footnote.textInPage(), destinationFile);
         }
     }
 }

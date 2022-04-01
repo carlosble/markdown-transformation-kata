@@ -47,7 +47,7 @@ public class TransformerShould {
         }
 
         @Override
-        public void writeLineWithEndingBreak(String line, String destinationFile) {
+        public void appendLineToTextFile(String line, String destinationFile) {
             buffer.append(line);
             buffer.append(" ");
         }

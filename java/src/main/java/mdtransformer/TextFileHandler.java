@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TextFileHandler {
+    // Idea for kata: implement a reactive version of this class (rxJava, Webflux...)
+
     public List<String> readLines(String sourceFile) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(sourceFile));
         List<String> lines = reader.lines().collect(Collectors.toList());
@@ -12,8 +14,7 @@ public class TextFileHandler {
         return lines;
     }
 
-    public void writeLineWithEndingBreak(String line, String destinationFile) throws IOException {
-        // TODO: make this more efficient
+    public void appendLineToTextFile(String line, String destinationFile) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(destinationFile, true));
         writer.append(line);
         writer.append("\n");
