@@ -13,8 +13,12 @@ public class MarkdownCmdInterpreter {
     }
 
     public void execute(String[] cmdArguments, PrintStream out) {
+        if(cmdArguments.length == 2) {
+            out.println("Error: link2note requires destination file argument");
+            return;
+        }
         try {
-            markdownTransformer.turnLinksIntoFootnotes(cmdArguments[2], cmdArguments[3]);
+            markdownTransformer.turnLinksIntoFootnotes(cmdArguments[1], cmdArguments[2]);
         } catch (IOException e) {
             out.println("Fatal error: " + e.getMessage());
         }

@@ -41,5 +41,18 @@ public class MarkdownCmdInterpreterTest {
     ["linkToNote","sourcefile"] -> print: el comando no existe, los comandos disponibles son....
     ["link2note"] -> print: El comando necesita el fichero fuente y destino
     [ ] -> print: No se han especificado argumentos, los comandos son ...
-*/
+    */
+
+    @Test
+    public void should_print_an_error_when_destination_file_argument_is_not_provided() throws IOException {
+        MarkdownTransformer markdownTransformerMock = mock(MarkdownTransformer.class);
+        PrintStream printStreamMock = mock(PrintStream.class);
+        MarkdownCmdInterpreter markdownCmdInterpreter = new MarkdownCmdInterpreter(markdownTransformerMock);
+
+        markdownCmdInterpreter.execute(new String[]{"link2note", "source"}, printStreamMock);
+
+        verify(printStreamMock).println("Error: link2note requires destination file argument");
+        verify(markdownTransformerMock, never()).turnLinksIntoFootnotes(any(), any());
+    }
+
 }
