@@ -13,13 +13,10 @@ public class MarkdownCmdInterpreter {
     }
 
     public void execute(String[] cmdArguments, PrintStream out) {
-
         try {
             markdownTransformer.turnLinksIntoFootnotes(cmdArguments[2], cmdArguments[3]);
         } catch (IOException e) {
             out.println("Fatal error: " + e.getMessage());
         }
-
-        out.println("Execution:" + String.join(",", cmdArguments));
     }
 }
