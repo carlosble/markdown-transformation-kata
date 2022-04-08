@@ -17,7 +17,7 @@ public class MarkdownCmdInterpreterTest {
         PrintStream printStreamMock = mock(PrintStream.class);
         MarkdownCmdInterpreter markdownCmdInterpreter = new MarkdownCmdInterpreter(markdownTransformerMock);
 
-        markdownCmdInterpreter.execute(new String[]{"-t", "link2note", "source", "output"}, printStreamMock);
+        markdownCmdInterpreter.execute(new String[]{"link2note", "source", "output"}, printStreamMock);
 
         verify(markdownTransformerMock).turnLinksIntoFootnotes("source", "output");
     }
@@ -31,9 +31,15 @@ public class MarkdownCmdInterpreterTest {
                 .when(markdownTransformerMock)
                 .turnLinksIntoFootnotes("source","output");
 
-        markdownCmdInterpreter.execute(new String[]{"-t", "link2note", "source", "output"}, printStreamMock);
-
+        markdownCmdInterpreter.execute(new String[]{"link2note", "source", "output"}, printStreamMock);
 
         verify(printStreamMock).println("Fatal error: fooo");
     }
+
+    /*
+    ["link2note","sourcefile"] -> print: El comando necesita el fichero destino
+    ["linkToNote","sourcefile"] -> print: el comando no existe, los comandos disponibles son....
+    ["link2note"] -> print: El comando necesita el fichero fuente y destino
+    [ ] -> print: No se han especificado argumentos, los comandos son ...
+*/
 }
