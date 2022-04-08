@@ -2,6 +2,7 @@ package cmd;
 
 import mdtransformer.MarkdownTransformer;
 
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class MarkdownCmdInterpreter {
@@ -12,6 +13,13 @@ public class MarkdownCmdInterpreter {
     }
 
     public void execute(String[] cmdArguments, PrintStream out) {
+
+        try {
+            markdownTransformer.turnLinksIntoFootnotes(cmdArguments[2], cmdArguments[3]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         out.println("Execution:" + String.join(",", cmdArguments));
     }
 }
