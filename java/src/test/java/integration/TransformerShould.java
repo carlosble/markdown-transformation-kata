@@ -1,6 +1,6 @@
 package integration;
 
-import mdtransformer.Factory;
+import infrastructure.Factory;
 import mdtransformer.MarkdownTransformer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
