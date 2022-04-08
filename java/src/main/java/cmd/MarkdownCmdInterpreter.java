@@ -17,7 +17,7 @@ public class MarkdownCmdInterpreter {
         try {
             markdownTransformer.turnLinksIntoFootnotes(cmdArguments[2], cmdArguments[3]);
         } catch (IOException e) {
-            e.printStackTrace();
+            out.println("Fatal error: " + e.getMessage());
         }
 
         out.println("Execution:" + String.join(",", cmdArguments));
